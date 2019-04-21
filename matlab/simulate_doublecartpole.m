@@ -9,7 +9,7 @@ function simulate_doublecartpole
   p.m_2 = 1;
   p.g = 9.81;
   
-  % get a random starting state between min and max
+  % get a random starting state between min state and max state
   x_min = [-1; -pi; -pi; -.05; -1; -1];
   x_max = -x_min;
   x0 = rand(6,1) .* (x_max-x_min) + x_min;
@@ -21,9 +21,6 @@ function simulate_doublecartpole
   draw_doublecartpole(times, X, x_min, x_max, p);
  
 end
-
-
-
 
 function r = ode_function(t, x)
   r_1 = 1;
