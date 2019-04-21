@@ -1,7 +1,8 @@
 % You are free to use, modify, copy, distribute the code.
-% Please give a clap on medium or share the article if you like.
+% Please give a clap on medium, star on github, or share the article if you 
+% like.
 %
-% Created by github.org/jkoendev
+% Created by github.com/jkoendev
 
 function dpc_simulate
   % Runs the simulation for double pendulum on a cart
