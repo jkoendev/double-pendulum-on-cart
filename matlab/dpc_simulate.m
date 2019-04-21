@@ -1,4 +1,10 @@
+% You are free to use, modify, copy, distribute the code.
+% Please give a clap on medium or share the article if you like.
+%
+% Created by github.org/jkoendev
+
 function dpc_simulate
+  % Runs the simulation for double pendulum on a cart
   
   % parameters 
   % you can modify the parameters to get a different behaviour
@@ -20,7 +26,6 @@ function dpc_simulate
   [tspan, X] = ode45(@(t,x)dpc_ode(t,x,p), tspan, x0);
   
   dpc_draw(tspan, X, x_min, x_max, p);
- 
 end
 
 function xdot = dpc_ode(t, x, p)
