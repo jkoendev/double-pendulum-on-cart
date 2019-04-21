@@ -1,4 +1,3 @@
 
-doublecartpole_dynamics_generated.m
-doublecartpole_dynamics_simplified_generated.m
-
+dpc_dynamics_generated.m
+dpc_simple_dynamics_generated.m

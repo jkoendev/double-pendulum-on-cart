@@ -1,8 +1,8 @@
-# Double pendulum on cart simulation
+# Double pendulum on cart (dpc) simulation
 
-First run `doublecartpole_lagrange.m` to generate the system dynamics function. The generated function will be created under the name `doublecartpole_dynamics_generated.m`.
+First run `dpc_lagrange.m` to generate the system dynamics function. The generated function will be created under the name `dpc_dynamics_generated.m`.
 
-Then you can run `simulate_doublecartpole.m` to simulate and draw the animation.
+Then you can run `dpc_simulate.m` to simulate and draw the animation.
 
 You can also modify the parameters at the top of the simulation file.
 

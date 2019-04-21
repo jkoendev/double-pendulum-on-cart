@@ -1,7 +1,9 @@
-function fig_handles = draw_doublecartpole(times, X, x_min, x_max, p)
+function dpc_draw(times, X, x_min, x_max, p)
   
   x0 = X(1,:)';
-  [p_c, p_1, p_2] = doublecartpole_endpositions(x0(1), x0(2), x0(3), p);
+  
+  % this function is defined below
+  [p_c, p_1, p_2] = dpc_endpositions(x0(1), x0(2), x0(3), p);
   
   figure;
   hold on;
@@ -28,10 +30,11 @@ function fig_handles = draw_doublecartpole(times, X, x_min, x_max, p)
   pause(0.5)
 
   for k=2:size(X,1)
+    tic;
     
     x = X(k,:)';
     
-    [p_c, p_1, p_2] = doublecartpole_endpositions(x(1), x(2), x(3), p);
+    [p_c, p_1, p_2] = dpc_endpositions(x(1), x(2), x(3), p);
 
     set(timer_handle, 'String', sprintf('%.2f s', times(k)));
 
@@ -52,7 +55,15 @@ function fig_handles = draw_doublecartpole(times, X, x_min, x_max, p)
     set(joint_two_handle, 'Xdata', p_2(1));
     set(joint_two_handle, 'Ydata', p_2(2));
     
-    pause(times(k)-times(k-1));
+    pause(times(k)-times(k-1)-toc);
   end
   
+end
+
+function [p_c, p_1, p_2] = dpc_endpositions(q_0, q_1, q_2, p) 
+  % Returns the positions of cart, first joint, and second joint
+  % to draw the black circles
+  p_c = [q_0; 0];
+  p_1 = p_c + p.r_1 * [cos(q_1); sin(q_1)];
+  p_2 = p_c + p.r_1 * [cos(q_1); sin(q_1)] + p.r_2 * [cos(q_1+q_2); sin(q_1+q_2)];
 end

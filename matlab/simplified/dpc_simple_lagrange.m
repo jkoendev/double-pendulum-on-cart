@@ -66,5 +66,5 @@ disp('qddot_1 = '); disp(r.qddot_1);
 disp('qddot_2 = '); disp(r.qddot_2);
 
 % generate Matlab function
-matlabFunction([qdot_0; qdot_1; qdot_2; r.qddot_0; r.qddot_1; r.qddot_2], 'file', 'doublecartpole_dynamics_simplified_generated', 'Vars', [q;qdot;f])
+matlabFunction([qdot_0; qdot_1; qdot_2; r.qddot_0; r.qddot_1; r.qddot_2], 'file', 'dpc_simple_dynamics_generated', 'Vars', [q;qdot;f])
 

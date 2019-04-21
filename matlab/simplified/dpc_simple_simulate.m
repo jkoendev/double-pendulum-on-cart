@@ -1,6 +1,6 @@
-function simulate_doublecartpole
+function dpc_simple_simulate
   
-  % parameters
+  % parameters (not modifiable as the parameters are hardcoded in the equations below)
   p = struct;
   p.r_1 = 1;
   p.r_2 = 1;
@@ -15,14 +15,14 @@ function simulate_doublecartpole
   x0 = rand(6,1) .* (x_max-x_min)+x_min;
   
   % simulate
-  tspan = [0:0.01:5];
-  [tspan, X] = ode45(@ode_function, tspan, x0);
+  tspan = [0:0.01:8];
+  [tspan, X] = ode45(@dpc_simple_ode, tspan, x0);
   
-  draw_doublecartpole(tspan, X, x_min, x_max, p);
+  dpc_simple_draw(tspan, X, x_min, x_max, p);
  
 end
 
-function xdot = ode_function(t, x)
+function xdot = dpc_simple_ode(t, x)
   
   f = 0;
   

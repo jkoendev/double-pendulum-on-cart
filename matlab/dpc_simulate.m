@@ -1,4 +1,4 @@
-function simulate_doublecartpole
+function dpc_simulate
   
   % parameters 
   % you can modify the parameters to get a different behaviour
@@ -16,16 +16,16 @@ function simulate_doublecartpole
   x0 = rand(6,1) .* (x_max-x_min)+x_min;
   
   % simulate
-  tspan = [0:0.01:5];
-  [tspan, X] = ode45(@(t,x)ode_function(t,x,p), tspan, x0);
+  tspan = [0:0.01:8];
+  [tspan, X] = ode45(@(t,x)dpc_ode(t,x,p), tspan, x0);
   
-  draw_doublecartpole(tspan, X, x_min, x_max, p);
+  dpc_draw(tspan, X, x_min, x_max, p);
  
 end
 
-function xdot = ode_function(t, x, p)
+function xdot = dpc_ode(t, x, p)
   
   f = 0;
-  xdot = doublecartpole_dynamics_generated(x(1), x(2), x(3), x(4), x(5), x(6), f, p.r_1, p.r_2, p.m_c, p.m_1, p.m_2, p.g);
+  xdot = dpc_dynamics_generated(x(1), x(2), x(3), x(4), x(5), x(6), f, p.r_1, p.r_2, p.m_c, p.m_1, p.m_2, p.g);
   
 end
