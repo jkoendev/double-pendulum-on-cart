@@ -45,6 +45,15 @@ d_inner_by_dt = jacobian(partial_L_by_partial_qdot, q) * qdot + jacobian(partial
 % Euler-Lagrange equation
 lagrange_eq = partial_L_by_partial_q - d_inner_by_dt == [f;0;0];
 
+% substitude parameters with numerical values to get simpler equations
+r_1n = 1;
+r_2n = 1;
+m_cn = 5;
+m_1n = 1;
+m_2n = 1;
+gn = 9.81;
+lagrange_eq = subs(lagrange_eq, {r_1, r_2, m_c, m_1, m_2, g}, {r_1n, r_2n, m_cn, m_1n, m_2n, gn});
+
 % solve the lagrange equation for qddot and simplify (takes a while)
 r = solve(simplify(lagrange_eq), qddot);
 
@@ -57,5 +66,5 @@ disp('qddot_1 = '); disp(r.qddot_1);
 disp('qddot_2 = '); disp(r.qddot_2);
 
 % generate Matlab function
-matlabFunction([qdot_0; qdot_1; qdot_2; r.qddot_0; r.qddot_1; r.qddot_2], 'file', 'doublecartpole_dynamics_generated', 'Vars', [q;qdot;f;p])
+matlabFunction([qdot_0; qdot_1; qdot_2; r.qddot_0; r.qddot_1; r.qddot_2], 'file', 'doublecartpole_dynamics_simplified_generated', 'Vars', [q;qdot;f])
 
