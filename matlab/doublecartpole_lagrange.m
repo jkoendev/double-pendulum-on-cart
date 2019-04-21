@@ -46,9 +46,9 @@ d_inner_by_dt = jacobian(partial_L_by_partial_qdot, q) * qdot + jacobian(partial
 lagrange_eq = partial_L_by_partial_q - d_inner_by_dt == [f;0;0];
 
 % solve the lagrange equation for qddot (takes a few seconds)
-r = solve(lagrange_eq, qddot)
+r = solve(lagrange_eq, qddot);
 
 % generate Matlab function
-matlabFunction([qdot_0; qdot_1; qdot_2; r.qddot_0; r.qddot_1; r.qddot_2], 'file', 'dynamics_generated', 'Vars', [q;qdot;f;p])
+matlabFunction([qdot_0; qdot_1; qdot_2; r.qddot_0; r.qddot_1; r.qddot_2], 'file', 'doublecartpole_dynamics_generated', 'Vars', [q;qdot;f;p])
 
 
