@@ -43,7 +43,7 @@ partial_L_by_partial_qdot = jacobian(L, qdot).';
 d_inner_by_dt = jacobian(partial_L_by_partial_qdot, q) * qdot + jacobian(partial_L_by_partial_qdot, qdot) * qddot;
 
 % Euler-Lagrange equation
-lagrange_eq = partial_L_by_partial_q - d_inner_by_dt == [f;0;0];
+lagrange_eq = partial_L_by_partial_q - d_inner_by_dt - [f;0;0];
 
 % solve the lagrange equation for qddot and simplify (takes a while)
 r = solve(simplify(lagrange_eq), qddot);

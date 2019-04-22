@@ -61,24 +61,33 @@ partial_L_by_partial_qdot = L.jacobian(Matrix([qdot])).T
 d_inner_by_dt = partial_L_by_partial_qdot.jacobian(Matrix([q])) * qdot + partial_L_by_partial_qdot.jacobian(Matrix([qdot])) * qddot
 
 # Euler-Lagrange equation
-lagrange_eq = partial_L_by_partial_q - d_inner_by_dt - Matrix(3,1,[f,0,0])
+lagrange_eq = partial_L_by_partial_q - d_inner_by_dt - Matrix([f,0,0])
+
+# substitude parameters with numerical values to get simpler equations
+lagrange_eq = lagrange_eq.subs({r_1:1., r_2:1., m_c:5., m_1:1., m_2:1., g:9.81});
+
+print(partial_L_by_partial_q)
+
+
+
+# print(lagrange_eq)
 
 # solve the lagrange equation for qddot and simplify
-print("Calculations take a while...")
-r = sympy.solvers.solve(simplify(lagrange_eq), Matrix([qddot]))
-
-qddot_0 = simplify(r[qddot_0]);
-qddot_1 = simplify(r[qddot_1]);
-qddot_2 = simplify(r[qddot_2]);
-
-print('qddot_0 = {}\n'.format(qddot_0));
-print('qddot_1 = {}\n'.format(qddot_1));
-print('qddot_2 = {}\n'.format(qddot_2));
-
-# generate python function
-s = lambdastr((q_0, q_1, q_2, qdot_0, qdot_1, qdot_2, f, r_1, r_2, m_c, m_1, m_2, g),
-              [qdot_0, qdot_1, qdot_2, qddot_0, qddot_1, qddot_2])
-
-f_gen = open("dpc_dynamics_generated.py", 'w')
-f_gen.write("import math\ndef dpc_dynamics_generated(q_0, q_1, q_2, qdot_0, qdot_1, qdot_2, f, r_1, r_2, m_c, m_1, m_2, g):\n\tfun="+s+"\n\treturn fun(q_0, q_1, q_2, qdot_0, qdot_1, qdot_2, f, r_1, r_2, m_c, m_1, m_2, g)")
-f_gen.close()
+# print("Calculations take a while...")
+# r = sympy.solvers.solve(simplify(lagrange_eq), Matrix([qddot]))
+#
+# qddot_0 = r[qddot_0];
+# qddot_1 = r[qddot_1];
+# qddot_2 = simplify(r[qddot_2]);
+#
+# print('qddot_0 = {}\n'.format(qddot_0));
+# print('qddot_1 = {}\n'.format(qddot_1));
+# print('qddot_2 = {}\n'.format(qddot_2));
+#
+# # generate python function
+# s = lambdastr((q_0, q_1, q_2, qdot_0, qdot_1, qdot_2, f, r_1, r_2, m_c, m_1, m_2, g),
+#               [qdot_0, qdot_1, qdot_2, qddot_0, qddot_1, qddot_2])
+#
+# f_gen = open("dpc_simple_dynamics_generated.py", 'w')
+# f_gen.write("import math\ndef dpc_dynamics_generated(q_0, q_1, q_2, qdot_0, qdot_1, qdot_2, f, r_1, r_2, m_c, m_1, m_2, g):\n\tfun="+s+"\n\treturn fun(q_0, q_1, q_2, qdot_0, qdot_1, qdot_2, f, r_1, r_2, m_c, m_1, m_2, g)")
+# f_gen.close()

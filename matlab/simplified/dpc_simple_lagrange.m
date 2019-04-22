@@ -43,7 +43,7 @@ partial_L_by_partial_qdot = jacobian(L, qdot).';
 d_inner_by_dt = jacobian(partial_L_by_partial_qdot, q) * qdot + jacobian(partial_L_by_partial_qdot, qdot) * qddot;
 
 % Euler-Lagrange equation
-lagrange_eq = partial_L_by_partial_q - d_inner_by_dt == [f;0;0];
+lagrange_eq = partial_L_by_partial_q - d_inner_by_dt - [f;0;0];
 
 % substitude parameters with numerical values to get simpler equations
 r_1n = 1;
@@ -64,6 +64,3 @@ qddot_2 = simplify(r.qddot_2);
 disp('qddot_0 = '); disp(qddot_0);
 disp('qddot_1 = '); disp(qddot_1);
 disp('qddot_2 = '); disp(qddot_2);
-
-% generate Matlab function
-matlabFunction([qdot_0; qdot_1; qdot_2; r.qddot_0; r.qddot_1; r.qddot_2], 'file', 'dpc_simple_dynamics_generated', 'Vars', [q;qdot;f])
