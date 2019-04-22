@@ -7,13 +7,13 @@ q = [q_0; q_1; q_2];                  % generalized positions
 qdot = [qdot_0; qdot_1; qdot_2];      % time derivative of q
 qddot = [qddot_0; qddot_1; qddot_2];  % time derivative of qdot
 
-% To calculate time derivatives of a functoin f(q), we use:
+% To calculate time derivatives of a function f(q), we use:
 % df(q)/dt = df(q)/dq * dq/dt = df(q)/dq * qdot
 
 % kinematics:
 p_c = [q_0; 0];
-p_1 = p_c + r_1 * [cos(q_1); sin(q_1)];
-p_2 = p_c + r_1 * [cos(q_1); sin(q_1)] + r_2 * [cos(q_1+q_2); sin(q_1+q_2)];
+p_1 = p_c + r_1/2 * [cos(q_1); sin(q_1)];
+p_2 = p_c + r_1 * [cos(q_1); sin(q_1)] + r_2/2 * [cos(q_1+q_2); sin(q_1+q_2)];
 
 v_c = jacobian(p_c, q_0) * qdot_0;
 v_1 = jacobian(p_1, [q_0; q_1]) * [qdot_0; qdot_1];
@@ -52,10 +52,9 @@ qddot_0 = simplify(r.qddot_0);
 qddot_1 = simplify(r.qddot_1);
 qddot_2 = simplify(r.qddot_2);
 
-disp('qddot_0 = '); disp(r.qddot_0);
-disp('qddot_1 = '); disp(r.qddot_1);
-disp('qddot_2 = '); disp(r.qddot_2);
+disp('qddot_0 = '); disp(qddot_0);
+disp('qddot_1 = '); disp(qddot_1);
+disp('qddot_2 = '); disp(qddot_2);
 
 % generate Matlab function
 matlabFunction([qdot_0; qdot_1; qdot_2; r.qddot_0; r.qddot_1; r.qddot_2], 'file', 'dpc_dynamics_generated', 'Vars', [q;qdot;f;p])
-
