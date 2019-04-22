@@ -1,12 +1,14 @@
-# doube_pole_cart
+# Double pendulum on a cart (dpc) simulation model
+
+
 
 ## Prerequisites
 
 ### Python
 
-* sympy
-
 ```
+pip install scipy
+pip install numpy
 pip install sympy
 ```
 

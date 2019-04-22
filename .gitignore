@@ -1,3 +1,5 @@
-
+__pycache__
 dpc_dynamics_generated.m
 dpc_simple_dynamics_generated.m
+dpc_dynamics_generated.py
+dpc_simple_dynamics_generated

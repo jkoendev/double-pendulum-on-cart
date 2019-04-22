@@ -1,3 +1,13 @@
+# You are free to use, modify, copy, distribute the code.
+# Please give a clap on medium, star on github, or share the article if you
+# like.
+# Created by Jonas, github.com/jkoendev
+
+# Double pendulum on a cart (dpc) simulation code
+#
+# This file generates the model from symbolic expressions and generates a
+# file with the name `dpc_dynamics_generated.py`
+
 import sympy
 from sympy import sin, cos, simplify
 from sympy import symbols as syms
