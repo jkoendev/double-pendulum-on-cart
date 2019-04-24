@@ -5,15 +5,6 @@
 % Created by github.com/jkoendev
 
 function dpc_simple_simulate
-  % parameters
-  p = struct;
-  p.r_1 = 1;
-  p.r_2 = 1;
-  p.m_c = 5;
-  p.m_1 = 1;
-  p.m_2 = 1;
-  p.g   = 9.81;
-
   % get a random starting state between min state and max state
   x_min = [-1; -pi; -pi; -.05; -1; -1];
   x_max = -x_min;
@@ -21,13 +12,10 @@ function dpc_simple_simulate
 
   % simulate
   tspan = [0:0.01:8];
-  [tspan, X] = ode45(@dpc_simple_ode, tspan, x0);
-
-  dpc_simple_draw(tspan, X, x_min, x_max, p);
-
+  [tspan, X] = ode45(@dpc_ode, tspan, x0);
 end
 
-function xdot = dpc_simple_ode(t, x)
+function xdot = dpc_ode(t, x)
 
   q_0 = x(1);
   q_1 = x(2);

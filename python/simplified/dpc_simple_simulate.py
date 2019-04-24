@@ -14,20 +14,7 @@ import numpy as np
 import math
 from scipy.integrate import solve_ivp
 
-from dpc_simple_draw import dpc_simple_draw
-
 def main():
-
-  # parameters
-  p = {
-    "r_1" : 1,
-    "r_2" : 1,
-    "m_c" : 5,
-    "m_1" : 1,
-    "m_2" : 1,
-    "g" : 0.81
-  }
-
   # get a random starting state between min state and max state
   x_min = np.array([-1, -np.pi, -np.pi, -.05, -1, -1]);
   x_max = -x_min;
@@ -37,8 +24,6 @@ def main():
   # simulate
   t_eval = np.arange(0, 8, 0.025);
   sol = solve_ivp(dpc_ode, [0,8], x0, method="RK45", t_eval=t_eval);
-
-  dpc_simple_draw(sol.t, sol.y, x_min, x_max, p);
 
 def dpc_ode(t, x):
   q_0 = x[0];
