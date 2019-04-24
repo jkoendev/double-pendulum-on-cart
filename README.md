@@ -10,6 +10,7 @@
 pip install scipy
 pip install numpy
 pip install sympy
+pip install matplotlib
 ```
 
 ### Matlab
