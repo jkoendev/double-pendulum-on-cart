@@ -75,6 +75,7 @@ qddot_0 = r[qddot_0];
 qddot_1 = r[qddot_1];
 qddot_2 = r[qddot_2];
 
+# draw the equations that we can copy&paste to the ode
 print('qddot_0 = {}\n'.format(qddot_0));
 print('qddot_1 = {}\n'.format(qddot_1));
 print('qddot_2 = {}\n'.format(qddot_2));
