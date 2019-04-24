@@ -1,5 +1,7 @@
 # Double pendulum on a cart (dpc) simulation model
 
+The blog post can be viewed at the [OpenOCL blog](https://openocl.org/tutorials/tutorial-01-modeling-double-cartpole/) and at [Medium]().
+
 ## Prerequisites
 
 ### Python
