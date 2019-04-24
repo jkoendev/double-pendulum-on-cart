@@ -17,7 +17,7 @@ p_2 = p_c + r_1 * [cos(q_1); sin(q_1)] + r_2/2 * [cos(q_1+q_2); sin(q_1+q_2)];
 
 v_c = jacobian(p_c, q_0) * qdot_0;
 v_1 = jacobian(p_1, [q_0; q_1]) * [qdot_0; qdot_1];
-v_2 = jacobian(p_2, [q_0; q_1;q_2]) * [qdot_0; qdot_1; qdot_2];
+v_2 = jacobian(p_2, [q_0; q_1; q_2]) * [qdot_0; qdot_1; qdot_2];
 
 
 K_c = m_c * v_c.'*v_c / 2;
@@ -54,8 +54,12 @@ m_2n = 1;
 gn = 9.81;
 lagrange_eq = subs(lagrange_eq, {r_1, r_2, m_c, m_1, m_2, g}, {r_1n, r_2n, m_cn, m_1n, m_2n, gn});
 
+
+
 % solve the lagrange equation for qddot and simplify (takes a while)
 r = solve(simplify(lagrange_eq), qddot);
+
+lagrange_eq = subs(lagrange_eq, {q_0,q_1,q_2,qdot_0,qdot_1,qdot_2,qddot_0,qddot_1,qddot_2,f},{1,1,1,1,1,1,1,1,1,1})
 
 qddot_0 = simplify(r.qddot_0);
 qddot_1 = simplify(r.qddot_1);

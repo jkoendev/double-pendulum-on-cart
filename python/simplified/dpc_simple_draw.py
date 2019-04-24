@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-def dpc_draw(tdata, X, x_min, x_max, p):
+def dpc_simple_draw(tdata, X, x_min, x_max, p):
 
   x0 = X[:,1];
 
@@ -12,7 +12,6 @@ def dpc_draw(tdata, X, x_min, x_max, p):
 
   fig, ax = plt.subplots(1, 1)
   ax.set_aspect('equal')
-  print(p)
   ax.set_xlim(x_min[1] - p["r_1"] - p["r_2"], x_max[1] + p["r_1"] + p["r_2"])
   ax.set_ylim(x_min[1] - p["r_1"] - p["r_2"], x_max[1] + p["r_1"] + p["r_2"])
   plt.show(False)
