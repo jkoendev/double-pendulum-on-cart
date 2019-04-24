@@ -14,6 +14,7 @@ from sympy import symbols as syms
 from sympy.matrices import Matrix
 from sympy.utilities.lambdify import lambdastr
 
+
 # state, state derivative, and control variables
 q_0, q_1, q_2, qdot_0, qdot_1, qdot_2, qddot_0, qddot_1, qddot_2, f = syms('q_0 q_1 q_2 qdot_0 qdot_1 qdot_2 qddot_0 qddot_1 qddot_2 f')
 

@@ -1,3 +1,8 @@
+# You are free to use, modify, copy, distribute the code.
+# Please give a clap on medium, star on github, or share the article if you
+# like.
+# Created by Jonas, github.com/jkoendev
+
 import time
 import numpy as np
 from matplotlib import pyplot as plt

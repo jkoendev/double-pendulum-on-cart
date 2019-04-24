@@ -1,3 +1,9 @@
+% You are free to use, modify, copy, distribute the code.
+% Please give a clap on medium, star on github, or share the article if you
+% like.
+%
+% Created by github.com/jkoendev
+
 syms q_0 q_1 q_2 qdot_0 qdot_1 qdot_2 qddot_0 qddot_1 qddot_2 f
 syms r_1 r_2 m_c m_1 m_2 g % parameters
 

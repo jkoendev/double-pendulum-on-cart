@@ -9,3 +9,7 @@ You can also modify the parameters at the top of the simulation file.
 ## Simplified version
 
 In the subdirectory is a simplified version of the program where the parameters are hardcoded into the system equations. In this way the equations fit on a single page. This version is presented in the blog post. However, here we can not change the parameters easily in the simulation but have solve the Euler-Lagrange equations again with the modified parameters.
+
+## License
+
+You are free to use, modify, copy, distribute the code. Please give a clap on medium, star on github, or share the article if you like.

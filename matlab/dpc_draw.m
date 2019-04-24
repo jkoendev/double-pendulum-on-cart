@@ -1,3 +1,9 @@
+% You are free to use, modify, copy, distribute the code.
+% Please give a clap on medium, star on github, or share the article if you
+% like.
+%
+% Created by github.com/jkoendev
+
 function dpc_draw(times, X, x_min, x_max, p)
 
   x0 = X(1,:)';

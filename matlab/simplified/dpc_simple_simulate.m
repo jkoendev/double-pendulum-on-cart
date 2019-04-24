@@ -1,3 +1,9 @@
+% You are free to use, modify, copy, distribute the code.
+% Please give a clap on medium, star on github, or share the article if you
+% like.
+%
+% Created by github.com/jkoendev
+
 function dpc_simple_simulate
   % parameters
   p = struct;
