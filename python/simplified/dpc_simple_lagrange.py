@@ -5,8 +5,7 @@
 
 # Double pendulum on a cart (dpc) simulation code
 #
-# This file generates the model from symbolic expressions and generates a
-# file with the name `dpc_dynamics_generated.py`
+# This file generates the model from symbolic expressions
 
 import sympy
 from sympy import sin, cos, simplify
