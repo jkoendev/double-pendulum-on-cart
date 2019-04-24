@@ -25,7 +25,7 @@ Load symbolic package before running the code
 pkg load symbolic
 ```
 
-# Executing the simulation
+## Executing the simulation
 
 First run `dpc_lagrange` to generate the system dynamics function. The generated function will be created under the name `dpc_dynamics_generated`.
 
