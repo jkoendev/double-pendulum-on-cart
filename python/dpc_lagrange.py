@@ -54,14 +54,14 @@ L = K_c + K_1 + K_2 - P_1 - P_2
 partial_L_by_partial_q = L.jacobian(Matrix([q])).T
 
 # inner term of the second part of the Euler-Lagrange equation
-partial_L_by_partial_qdot = L.jacobian(Matrix([qdot])).T
+partial_L_by_partial_qdot = L.jacobian(Matrix([qdot]))
 
 # second term (overall, time derivative) in the Euler-Lagrange equation
 # applies the chain rule
 d_inner_by_dt = partial_L_by_partial_qdot.jacobian(Matrix([q])) * qdot + partial_L_by_partial_qdot.jacobian(Matrix([qdot])) * qddot
 
 # Euler-Lagrange equation
-lagrange_eq = partial_L_by_partial_q - d_inner_by_dt - Matrix(3,1,[f,0,0])
+lagrange_eq = partial_L_by_partial_q - d_inner_by_dt - Matrix([f,0,0])
 
 # solve the lagrange equation for qddot and simplify
 print("Calculations take a while...")

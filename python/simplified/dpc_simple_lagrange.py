@@ -81,7 +81,3 @@ print('qddot_2 = {}\n'.format(qddot_2));
 # # generate python function
 s = lambdastr((q_0, q_1, q_2, qdot_0, qdot_1, qdot_2, f, r_1, r_2, m_c, m_1, m_2, g),
                [qdot_0, qdot_1, qdot_2, qddot_0, qddot_1, qddot_2])
-
-f_gen = open("tmp.py", 'w')
-f_gen.write("import math\ndef dpc_dynamics_generated(q_0, q_1, q_2, qdot_0, qdot_1, qdot_2, f, r_1, r_2, m_c, m_1, m_2, g):\n\tfun="+s+"\n\treturn fun(q_0, q_1, q_2, qdot_0, qdot_1, qdot_2, f, r_1, r_2, m_c, m_1, m_2, g)")
-f_gen.close()
