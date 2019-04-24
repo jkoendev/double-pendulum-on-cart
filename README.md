@@ -43,4 +43,4 @@ This version can be run using the `dpc_simple_simulate` script (no code generati
 
 ## License
 
-You are free to use, modify, copy, distribute the code. Please give a clap on medium, star on github, or share the article if you like.
+You are free to use, modify, copy, distribute the code. Please give a clap on medium, star on github, or share the article if you like. Created by: [https://github.com/jkoendev/](https://github.com/jkoendev/)
