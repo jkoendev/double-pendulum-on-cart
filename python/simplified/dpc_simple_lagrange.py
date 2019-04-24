@@ -78,7 +78,3 @@ qddot_2 = r[qddot_2];
 print('qddot_0 = {}\n'.format(qddot_0));
 print('qddot_1 = {}\n'.format(qddot_1));
 print('qddot_2 = {}\n'.format(qddot_2));
-#
-# # generate python function
-s = lambdastr((q_0, q_1, q_2, qdot_0, qdot_1, qdot_2, f, r_1, r_2, m_c, m_1, m_2, g),
-               [qdot_0, qdot_1, qdot_2, qddot_0, qddot_1, qddot_2])
