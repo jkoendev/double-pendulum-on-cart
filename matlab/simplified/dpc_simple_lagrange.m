@@ -69,6 +69,7 @@ qddot_0 = simplify(r.qddot_0);
 qddot_1 = simplify(r.qddot_1);
 qddot_2 = simplify(r.qddot_2);
 
+% draw the equations that we can copy&paste to the ode
 disp('qddot_0 = '); disp(qddot_0);
 disp('qddot_1 = '); disp(qddot_1);
 disp('qddot_2 = '); disp(qddot_2);
