@@ -45,4 +45,4 @@ This version can be run using the `dpc_simple_simulate` script (no code generati
 
 ## License
 
-You are free to use, modify, copy, distribute the code. Please give a clap on medium, star on github, or share the article if you like. Created by: [https://github.com/jkoendev/](https://github.com/jkoendev/)
+You are free to use, modify, copy, distribute the code. Please give a clap on [Medium](https://medium.com/@JonasCoen/modeling-for-reinforcement-learning-and-optimal-control-double-pendulum-on-a-cart-394f46b7ec7e?sk=b1d33aada3cf45844142563a3044b8c2), star on github, or share the article if you like. Created by: [https://github.com/jkoendev/](https://github.com/jkoendev/)
