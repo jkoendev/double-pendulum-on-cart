@@ -1,6 +1,6 @@
 framerate = 25;
 
-u_fh = @(t,x) 2*sin(t);
+u_fh = @(t,x) 10*cos(t);
 
 data = dpc_simulate(1/framerate, false, u_fh);
 x0 = data.X(1,:)';

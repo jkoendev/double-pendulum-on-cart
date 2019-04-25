@@ -62,7 +62,7 @@ partial_L_by_partial_qdot = L.jacobian(Matrix([qdot]))
 d_inner_by_dt = partial_L_by_partial_qdot.jacobian(Matrix([q])) * qdot + partial_L_by_partial_qdot.jacobian(Matrix([qdot])) * qddot
 
 # Euler-Lagrange equation
-lagrange_eq = partial_L_by_partial_q - d_inner_by_dt - Matrix([f,0,0])
+lagrange_eq = partial_L_by_partial_q - d_inner_by_dt + Matrix([f,0,0])
 
 # solve the lagrange equation for qddot and simplify
 print("Calculations take a while...")

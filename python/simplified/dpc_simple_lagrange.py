@@ -61,7 +61,7 @@ partial_L_by_partial_qdot = L.jacobian(Matrix([qdot]))
 d_inner_by_dt = partial_L_by_partial_qdot.jacobian(Matrix([q])) * qdot + partial_L_by_partial_qdot.jacobian(Matrix([qdot])) * qddot
 
 # Euler-Lagrange equation
-lagrange_eq =  partial_L_by_partial_q - d_inner_by_dt - Matrix([f,0,0])
+lagrange_eq =  partial_L_by_partial_q - d_inner_by_dt + Matrix([f,0,0])
 
 # substitude parameters with numerical values to get simpler equations
 lagrange_eq = lagrange_eq.subs({r_1:1, r_2:1, m_c:5, m_1:1, m_2:1, g:9.81});

@@ -19,7 +19,7 @@ function [fig, h] = dpc_draw_prepare(x0, x_min, x_max, p)
   joint_one_handle = plot(p_1(1), p_1(2), 'ko', 'MarkerSize', 5);
   joint_two_handle = plot(p_2(1), p_2(2), 'ko', 'MarkerSize', 5);
   
-  control_handle = plot([p_c(1),p_c(1)], [p_c(2),p_c(2)], 'r', 'MarkerSize', 5);
+  control_handle = plot([p_c(1),p_c(1)], [p_c(2),p_c(2)], 'r', 'Linewidth', 8);
   
   grid on;
   xlim([x_min(1)-p.r_1-p.r_2 x_max(1)+p.r_1+p.r_2]);

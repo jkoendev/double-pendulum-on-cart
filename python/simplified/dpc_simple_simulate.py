@@ -35,7 +35,7 @@ def dpc_ode(t, x):
   qdot_2 = x[5];
   f = 0;
 
-  qddot_0 = (4.0*f*math.cos(2.0*q_2)-6.0*f+
+  qddot_0 = (-4.0*f*math.cos(2.0*q_2)+6.0*f+
              4.0*qdot_1**2*math.cos(q_1)+
              qdot_1**2*math.cos(q_1-q_2)-
              qdot_1**2*math.cos(q_1+2.0*q_2)+
@@ -45,7 +45,7 @@ def dpc_ode(t, x):
              9.81*math.sin(2.0*q_1+2.0*q_2)) / \
             (3.0*math.cos(2.0*q_1)-22.0*math.cos(2.0*q_2)-
              math.cos(2.0*q_1+2.0*q_2)+34.0)
-  qddot_1 = (-8.0*f*math.sin(q_1)+4.0*f*math.sin(q_1+2.0*q_2)+
+  qddot_1 = (8.0*f*math.sin(q_1)-4.0*f*math.sin(q_1+2.0*q_2)+
              3.0*qdot_1**2*math.sin(2.0*q_1)+
              23.0*qdot_1**2*math.sin(q_2)+
              22.0*qdot_1**2*math.sin(2.0*q_2)+
@@ -72,7 +72,7 @@ def dpc_ode(t, x):
                math.cos(2.0*q_1+2.0*q_2)+13.0)+
                50.0*(2.0*math.sin(q_1)+3.0*math.sin(q_1-q_2)-
                2.0*math.sin(q_1+q_2)-math.sin(q_1+2.0*q_2))*
-              (-2.0*f+3.0*qdot_1**2*math.cos(q_1)+
+              (2.0*f+3.0*qdot_1**2*math.cos(q_1)+
                qdot_1**2*math.cos(q_1+q_2)+
                2.0*qdot_1*qdot_2*math.cos(q_1+q_2)+
                qdot_2**2*math.cos(q_1+q_2))) / \
