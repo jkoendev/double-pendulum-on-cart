@@ -1,6 +1,8 @@
 framerate = 25;
 
-data = dpc_simulate(1/framerate, false);
+u_fh = @(t,x) 2*sin(t);
+
+data = dpc_simulate(1/framerate, false, u_fh);
 x0 = data.X(1,:)';
 
 [fig, h] = dpc_draw_prepare(x0, data.x_min, data.x_max, data.p);
@@ -13,7 +15,8 @@ open(v);
 for k=1:size(data.X,1)
   t = data.t(k);
   x = data.X(k,:)';
-  dpc_draw_frame(h, t, x, data.p)
+  u = u_fh(t,x);
+  dpc_draw_frame(h, t, x, u, data.p)
   
   frame = getframe(fig);
   writeVideo(v, frame);

@@ -4,7 +4,7 @@
 %
 % Created by github.com/jkoendev
 
-function r = dpc_simulate(ts, animate)
+function r = dpc_simulate(ts, animate, control_fh)
   % Runs the simulation for double pendulum on a cart
   
   if nargin < 1
@@ -12,6 +12,9 @@ function r = dpc_simulate(ts, animate)
   end
   if nargin < 2
     animate = true;
+  end
+  if nargin < 3
+    control_fh = @(t,x) 0;
   end
 
   % parameters
@@ -31,10 +34,12 @@ function r = dpc_simulate(ts, animate)
 
   % simulate
   tspan = 0:ts:8;
-  [t, X] = ode45(@(t,x)dpc_ode(t,x,p), tspan, x0);
+  [t, X] = ode45(@(t,x)dpc_ode(t,x,control_fh,p), tspan, x0);
+  
+  U = arrayfun(control_fh,t);
 
   if animate
-    dpc_draw(t, X, x_min, x_max, p);
+    dpc_draw(t, X, U, x_min, x_max, p);
   end
   
   r = struct;
@@ -45,9 +50,9 @@ function r = dpc_simulate(ts, animate)
   r.p = p;
 end
 
-function xdot = dpc_ode(t, x, p)
+function xdot = dpc_ode(t, x, u_fh, p)
 
-  f = 0;
+  f = u_fh(t,x);
   xdot = dpc_dynamics_generated(x(1), x(2), x(3), x(4), x(5), x(6), f, p.r_1, p.r_2, p.m_c, p.m_1, p.m_2, p.g);
 
 end

@@ -1,4 +1,4 @@
-function dpc_draw_frame(h,t,x,p)
+function dpc_draw_frame(h,t,x,u,p)
 
 [p_c, p_1, p_2] = dpc_endpositions(x(1), x(2), x(3), p);
 
@@ -20,3 +20,5 @@ set(h.joint_one_handle, 'Ydata', p_1(2));
 
 set(h.joint_two_handle, 'Xdata', p_2(1));
 set(h.joint_two_handle, 'Ydata', p_2(2));
+
+set(h.control_handle, 'Xdata', [p_c(1),p_c(1)+u]);

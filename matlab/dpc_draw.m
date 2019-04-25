@@ -4,7 +4,7 @@
 %
 % Created by github.com/jkoendev
 
-function dpc_draw(times, X, x_min, x_max, p)
+function dpc_draw(times, X, U, x_min, x_max, p)
 
   x0 = X(1,:)';
   [~, h] = dpc_draw_prepare(x0, x_min, x_max, p);
@@ -14,9 +14,10 @@ function dpc_draw(times, X, x_min, x_max, p)
     tic;
 
     x = X(k,:)';
+    u = U(k);
     t = times(k);
     
-    dpc_draw_frame(h, t, x, p);
+    dpc_draw_frame(h, t, x,u, p);
     pause(times(k)-times(k-1)-toc);
   end
 end
