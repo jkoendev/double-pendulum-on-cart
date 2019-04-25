@@ -4,8 +4,15 @@
 %
 % Created by github.com/jkoendev
 
-function dpc_simulate
+function r = dpc_simulate(ts, animate)
   % Runs the simulation for double pendulum on a cart
+  
+  if nargin < 1
+    ts = 0.01;
+  end
+  if nargin < 2
+    animate = true;
+  end
 
   % parameters
   % you can modify the parameters to get a different behaviour
@@ -23,10 +30,19 @@ function dpc_simulate
   x0 = rand(6,1) .* (x_max-x_min)+x_min;
 
   % simulate
-  tspan = [0:0.01:8];
-  [tspan, X] = ode45(@(t,x)dpc_ode(t,x,p), tspan, x0);
+  tspan = 0:ts:8;
+  [t, X] = ode45(@(t,x)dpc_ode(t,x,p), tspan, x0);
 
-  dpc_draw(tspan, X, x_min, x_max, p);
+  if animate
+    dpc_draw(t, X, x_min, x_max, p);
+  end
+  
+  r = struct;
+  r.t = tspan;
+  r.X = X;
+  r.x_min = x_min;
+  r.x_max = x_max;
+  r.p = p;
 end
 
 function xdot = dpc_ode(t, x, p)

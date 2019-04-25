@@ -63,4 +63,4 @@ disp('qddot_1 = '); disp(qddot_1);
 disp('qddot_2 = '); disp(qddot_2);
 
 % generate Matlab function
-matlabFunction([qdot_0; qdot_1; qdot_2; r.qddot_0; r.qddot_1; r.qddot_2], 'file', 'dpc_dynamics_generated', 'Vars', [q;qdot;f;p])
+matlabFunction([qdot_0; qdot_1; qdot_2; r.qddot_0; r.qddot_1; r.qddot_2], 'file', 'dpc_dynamics_generated', 'Vars', [q;qdot;f;p]);
