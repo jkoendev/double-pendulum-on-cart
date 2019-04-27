@@ -5,9 +5,9 @@
 % Created by github.com/jkoendev
 
 syms q_0 q_1 q_2 qdot_0 qdot_1 qdot_2 qddot_0 qddot_1 qddot_2 f
-syms r_1 r_2 m_c m_1 m_2 g % parameters
+syms r_1 r_2 m_c m_1 m_2 g xi_1 xi_2 % parameters
 
-p = [r_1; r_2; m_c; m_1; m_2; g]; % parameter vector
+p = [r_1; r_2; m_c; m_1; m_2; g; xi_1; xi_2]; % parameter vector
 
 q = [q_0; q_1; q_2];                  % generalized positions
 qdot = [qdot_0; qdot_1; qdot_2];      % time derivative of q
@@ -18,12 +18,12 @@ qddot = [qddot_0; qddot_1; qddot_2];  % time derivative of qdot
 
 % kinematics:
 p_c = [q_0; 0];
-p_1 = p_c + r_1/2 * [cos(q_1); sin(q_1)];
-p_2 = p_c + r_1 * [cos(q_1); sin(q_1)] + r_2/2 * [cos(q_1+q_2); sin(q_1+q_2)];
+p_1 = p_c + r_1/2 * [-sin(q_1); cos(q_1)];
+p_2 = p_c + r_1 * [-sin(q_1); cos(q_1)] + r_2/2 * [-sin(q_1+q_2); cos(q_1+q_2)];
 
 v_c = jacobian(p_c, q_0) * qdot_0;
 v_1 = jacobian(p_1, [q_0; q_1]) * [qdot_0; qdot_1];
-v_2 = jacobian(p_2, [q_0; q_1;q_2]) * [qdot_0; qdot_1; qdot_2];
+v_2 = jacobian(p_2, [q_0; q_1; q_2]) * [qdot_0; qdot_1; qdot_2];
 
 
 K_c = m_c * (v_c.'*v_c) / 2;
@@ -49,7 +49,7 @@ partial_L_by_partial_qdot = jacobian(L, qdot).';
 d_inner_by_dt = jacobian(partial_L_by_partial_qdot, q) * qdot + jacobian(partial_L_by_partial_qdot, qdot) * qddot;
 
 % Euler-Lagrange equation
-lagrange_eq = partial_L_by_partial_q - d_inner_by_dt + [f;0;0];
+lagrange_eq = partial_L_by_partial_q - d_inner_by_dt + [f;-xi_1*qdot_1;-xi_2*qdot_2];
 
 % solve the lagrange equation for qddot and simplify (takes a while)
 r = solve(simplify(lagrange_eq), qddot);
