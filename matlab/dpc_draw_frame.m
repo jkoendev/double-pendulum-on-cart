@@ -21,4 +21,4 @@ set(h.joint_one_handle, 'Ydata', p_1(2));
 set(h.joint_two_handle, 'Xdata', p_2(1));
 set(h.joint_two_handle, 'Ydata', p_2(2));
 
-set(h.control_handle, 'Xdata', [p_c(1),p_c(1)+u/20]);
+set(h.control_handle, 'Xdata', [p_c(1),p_c(1)+u/200]);

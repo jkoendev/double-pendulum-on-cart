@@ -1,8 +1,4 @@
-framerate = 25;
-
-u_fh = @(t,x) 10*cos(t);
-
-data = dpc_simulate(1/framerate, false, u_fh);
+framerate = 1/(data.t(2)-data.t(1));
 x0 = data.X(1,:)';
 
 [fig, h] = dpc_draw_prepare(x0, data.x_min, data.x_max, data.p);
