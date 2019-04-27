@@ -1,7 +1,7 @@
-function dpc_swingup
+function dpc_swingup(X,U,H)
 
-  END_TIME = 5;              % horizon length (seconds)
-  CONTROL_INTERVALS = 100;     % control discretization
+  END_TIME = sum(H);              % horizon length (seconds)
+  CONTROL_INTERVALS = length(H);     % control discretization
 
   % Get and set solver options
   options = OclOptions();
@@ -29,8 +29,8 @@ function dpc_swingup
   ocl = OclSolver(END_TIME,system,ocp,options, h_norm);
   
   % get a random starting state between min state and max state
-  x_min = [-1; -pi; 0; 0; -0.05; -0.05];
-  x_max = [1; -pi; 0; 0; 0.05; 0.05];
+  x_min = [0; -pi; 0; 0; 0; 0];
+  x_max = [0; -pi; 0; 0; 0; 0];
   x0 = rand(6,1) .* (x_max-x_min)+x_min ;
 
   % intial state bounds
@@ -44,6 +44,9 @@ function dpc_swingup
 
   % Get and set initial guess
   initialGuess = ocl.getInitialGuess();
+  initialGuess.states.set(X);
+  initialGuess.controls.set(U);
+  initialGuess.h.set(H);
 
   % Run solver to obtain solution
   [solution,times] = ocl.solve(initialGuess);
