@@ -6,7 +6,7 @@ function dpc_swingup(X,U,H)
   % Get and set solver options
   options = OclOptions();
   options.nlp.controlIntervals = CONTROL_INTERVALS;
-  options.nlp.collocationOrder = 3;
+  options.nlp.collocationOrder = 2;
   options.nlp.ipopt.linear_solver = 'mumps';
   options.nlp.solver = 'ipopt';
   
@@ -17,27 +17,22 @@ function dpc_swingup(X,U,H)
   conf.m_1 = 1;
   conf.m_2 = 1;
   conf.g = 9.81;
-  conf.xi_1 = 1e-3;
-  conf.xi_2 = 1e-3;
+  conf.xi_1 = 1;
+  conf.xi_2 = 1;
 
   system = OclSystem(@varsfun,@(eq,x,z,u,p)eqfun(eq,x,u,conf));
   ocp = OclOCP(@(c,x,z,u,p)pathcosts(c,x,u,conf));
   
-  tspace = linspace(0,1,CONTROL_INTERVALS+1).^2;
-  h_norm = tspace(2:end)-tspace(1:end-1);
-
-  ocl = OclSolver(END_TIME,system,ocp,options, h_norm);
+  ocl = OclSolver(END_TIME,system,ocp,options);
   
   % get a random starting state between min state and max state
   x_min = [0; -pi; 0; 0; 0; 0];
   x_max = [0; -pi; 0; 0; 0; 0];
   x0 = rand(6,1) .* (x_max-x_min)+x_min ;
-
+  
   % intial state bounds
   ocl.setInitialBounds('q',  x0(1:3));
-  ocl.setInitialBounds('qdot', x0(4:6));
-  
-  eps = 1e-2;
+  ocl.setInitialBounds('qdot', x0(4:6) );
   
   %ocl.setEndBounds('q',  [-eps,-eps,-eps], [eps,eps,eps]);
   %ocl.setEndBounds('qdot', [-eps,-eps,-eps], [eps,eps,eps]);
@@ -63,7 +58,7 @@ function varsfun(vars)
   vars.addState('q', 3, 'lb', [-3, -inf, -inf], 'ub', [3, inf, inf]);
   vars.addState('qdot', 3 ,'lb', [-5, -5, -5], 'ub', [5, 5, 5]);
 
-  vars.addControl('F', 'lb', -40, 'ub', 40);
+  vars.addControl('F', 'lb', -60, 'ub', 60);
 end
 
 function eqfun(eq,x,u,conf)

@@ -4,7 +4,7 @@
 %
 % Created by github.com/jkoendev
 
-function [X,U,T,H] = dpc_mouse_control()
+function [X,U,T,H] = dpc_keyboard_control()
   % Runs the simulation for double pendulum on a cart
 
   p = struct;
@@ -14,8 +14,8 @@ function [X,U,T,H] = dpc_mouse_control()
   p.m_1 = 1;
   p.m_2 = 1;
   p.g = 9.81;
-  p.xi_1 = 1e-1;
-  p.xi_2 = 1e-1;
+  p.xi_1 = 1;
+  p.xi_2 = 1;
 
   x0 = [0; -pi; 0; 0; 0; 0];
 
@@ -60,9 +60,9 @@ function keydown(event, u)
   global U_STORAGE
   
   if event.Key == 'h'
-    U_STORAGE = -40;
+    U_STORAGE = -80;
   elseif event.Key == 'j'
-    U_STORAGE = 40;
+    U_STORAGE = 80;
   elseif event.Key = 'x'
     U_STORAGE = 0;
     global EXIT_STORAGE
