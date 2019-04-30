@@ -4,22 +4,14 @@
 %
 % Created by github.com/jkoendev
 
-function [X,U,T,H,conf] = dpc_keyboard_control()
+function [X,U,T,H] = dpc_keyboard_control()
   % Runs the simulation for double pendulum on a cart
 
-  conf = struct;
-  conf.r_1 = 1;
-  conf.r_2 = 1;
-  conf.m_c = 20;
-  conf.m_1 = 3;
-  conf.m_2 = 0.1;
-  conf.g = 9.81;
-  conf.xi_1 = 1e-2;;
-  conf.xi_2 = 1.5e-1;
+  conf = dpc_conf();
 
-  x0 = [0; -pi; 0; 0; 0; 0];
+  x0 = [0; -pi; 1; 0; 0; 0];
 
-  ts = 0.01;
+  ts = 0.03;
   [fig, h] = dpc_draw_prepare(x0, x0, x0, conf);
   
   global U_STORAGE
@@ -43,7 +35,7 @@ function [X,U,T,H,conf] = dpc_keyboard_control()
     u = U_STORAGE;
     x = x + ts * dpc_ode(t, x, u, conf);
     t = t + ts;
-    u
+
     X = [X,x];
     U = [U,u];
     T = [T,t];
@@ -60,9 +52,9 @@ function keydown(event, u)
   global U_STORAGE
   
   if event.Key == 'h'
-    U_STORAGE = -300;
+    U_STORAGE = -10;
   elseif event.Key == 'j'
-    U_STORAGE = 300;
+    U_STORAGE = 10;
   elseif event.Key == 'x'
     U_STORAGE = 0;
     global EXIT_STORAGE
@@ -80,6 +72,6 @@ end
 function xdot = dpc_ode(t, x, u, conf)
 
   f = u;
-  xdot = dpc_dynamics_generated(x(1), x(2), x(3), x(4), x(5), x(6), f, conf.r_1, conf.r_2, conf.m_c, conf.m_1, conf.m_2, conf.g, conf.xi_1, conf.xi_2);
+  xdot = dpc_dynamics_generated(x(1), x(2), x(3), x(4), x(5), x(6), f, conf.r_1, conf.r_2, conf.m_c, conf.m_1, conf.m_2, conf.g, conf.d_1, conf.d_2);
 
 end

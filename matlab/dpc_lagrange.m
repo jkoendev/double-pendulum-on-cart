@@ -5,9 +5,9 @@
 % Created by github.com/jkoendev
 
 syms q_0 q_1 q_2 qdot_0 qdot_1 qdot_2 qddot_0 qddot_1 qddot_2 f
-syms r_1 r_2 m_c m_1 m_2 g xi_1 xi_2 % parameters
+syms r_1 r_2 m_c m_1 m_2 g d_1 d_2 % parameters
 
-p = [r_1; r_2; m_c; m_1; m_2; g; xi_1; xi_2]; % parameter vector
+p = [r_1; r_2; m_c; m_1; m_2; g; d_1; d_2]; % parameter vector
 
 q = [q_0; q_1; q_2];                  % generalized positions
 qdot = [qdot_0; qdot_1; qdot_2];      % time derivative of q
@@ -39,28 +39,27 @@ P_2 = m_2 * g * p_2(2);
 L = K_c + K_1 + K_2 - P_1 - P_2;
 
 % first term in the Euler-Lagrange equation
-partial_L_by_partial_q = jacobian(L, q).';
+partial_L_by_partial_q = jacobian(L, [q_1,q_2]).';
 
 % inner term of the second part of the Euler-Lagrange equation
-partial_L_by_partial_qdot = jacobian(L, qdot).';
+partial_L_by_partial_qdot = jacobian(L, [qdot_1,qdot_2]).';
 
 % second term (overall, time derivative) in the Euler-Lagrange equation
 % applies the chain rule
-d_inner_by_dt = jacobian(partial_L_by_partial_qdot, q) * qdot + jacobian(partial_L_by_partial_qdot, qdot) * qddot;
+d_inner_by_dt = jacobian(partial_L_by_partial_qdot, [q_1,q_2]) * [qdot_1;qdot_2] + ...
+                jacobian(partial_L_by_partial_qdot, [qdot_1,qdot_2]) * [qddot_1;qddot_2];
 
 % Euler-Lagrange equation
-lagrange_eq = partial_L_by_partial_q - d_inner_by_dt + [f;-xi_1*qdot_1;-xi_2*qdot_2];
+lagrange_eq = partial_L_by_partial_q - d_inner_by_dt + [-d_1*qdot_1;-d_2*qdot_2];
 
 % solve the lagrange equation for qddot and simplify (takes a while)
-r = solve(simplify(lagrange_eq), qddot);
+r = solve(simplify(lagrange_eq), [qddot_1, qddot_2]);
 
-qddot_0 = simplify(r.qddot_0);
 qddot_1 = simplify(r.qddot_1);
 qddot_2 = simplify(r.qddot_2);
 
-disp('qddot_0 = '); disp(qddot_0);
 disp('qddot_1 = '); disp(qddot_1);
 disp('qddot_2 = '); disp(qddot_2);
 
 % generate Matlab function
-matlabFunction([qdot_0; qdot_1; qdot_2; r.qddot_0; r.qddot_1; r.qddot_2], 'file', 'dpc_dynamics_generated', 'Vars', [q;qdot;f;p]);
+matlabFunction([qdot_0; qdot_1; qdot_2; f; r.qddot_1; r.qddot_2], 'file', 'dpc_dynamics_generated', 'Vars', [q;qdot;f;p]);
