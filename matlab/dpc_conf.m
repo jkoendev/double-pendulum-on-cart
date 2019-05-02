@@ -1,10 +1,10 @@
 function conf = dpc_conf()
   conf = struct;
-  conf.r_1 = 1;
-  conf.r_2 = 1;
-  conf.m_c = 5;
-  conf.m_1 = 1;
-  conf.m_2 = 1;
+  conf.r_1 = 0.365;
+  conf.r_2 = 0.365;
+  conf.m_c = 1;
+  conf.m_1 = 0.755;
+  conf.m_2 = 0.654;
   conf.g = 9.81;
-  conf.d_1 = 1e-4;
-  conf.d_2 = 1e-4;
+  conf.d_1 = 0.003;
+  conf.d_2 = 0.002;

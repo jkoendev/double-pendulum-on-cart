@@ -9,9 +9,9 @@ function [X,U,T,H] = dpc_keyboard_control()
 
   conf = dpc_conf();
 
-  x0 = [0; -pi; 1; 0; 0; 0];
+  x0 = [0; pi; 0; 0; 0; 0];
 
-  ts = 0.03;
+  ts = 0.05;
   [fig, h] = dpc_draw_prepare(x0, x0, x0, conf);
   
   global U_STORAGE
@@ -33,7 +33,8 @@ function [X,U,T,H] = dpc_keyboard_control()
   while(1)
     tic;
     u = U_STORAGE;
-    x = x + ts * dpc_ode(t, x, u, conf);
+    
+    x = rk4(@(t,x) dpc_ode(t, x, u, conf), ts, t, x);
     t = t + ts;
 
     X = [X,x];
@@ -52,9 +53,9 @@ function keydown(event, u)
   global U_STORAGE
   
   if event.Key == 'h'
-    U_STORAGE = -10;
+    U_STORAGE = -20;
   elseif event.Key == 'j'
-    U_STORAGE = 10;
+    U_STORAGE = 20;
   elseif event.Key == 'x'
     U_STORAGE = 0;
     global EXIT_STORAGE
@@ -74,4 +75,22 @@ function xdot = dpc_ode(t, x, u, conf)
   f = u;
   xdot = dpc_dynamics_generated(x(1), x(2), x(3), x(4), x(5), x(6), f, conf.r_1, conf.r_2, conf.m_c, conf.m_1, conf.m_2, conf.g, conf.d_1, conf.d_2);
 
+end
+
+function [t,x] = oderk4(f, t, x0)
+  x = zeros(length(x0), length(t));
+  x(:,1) = x0;
+  for k=2:length(t)
+    dt = t(k) - t(k-1);
+    x(:,k) = rk4(f,dt,t(k),x(:,k-1));
+  end
+  x = x';
+end
+
+function xn = rk4(f,dt,t,x)
+  [k1] = f(t, x);
+  [k2] = f(t, x + dt/2 * k1);
+  [k3] = f(t, x + dt/2 * k2);
+  [k4] = f(t, x + dt * k3);
+  xn = x+dt/6*(k1 + 2*k2 + 2*k3 + k4);
 end

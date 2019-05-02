@@ -1,6 +1,6 @@
 function [X,U,H,data] = dpc_swingup(X,U,H)
 
-  N = 50;
+  N = 200;
   T = 5;
   if nargin >= 3
     T = sum(H);
@@ -14,7 +14,7 @@ function [X,U,H,data] = dpc_swingup(X,U,H)
   options = OclOptions();
   options.nlp.controlIntervals = CONTROL_INTERVALS;
   options.nlp.collocationOrder = 3;
-  options.nlp.ipopt.linear_solver = 'mumps';
+  options.nlp.ipopt.linear_solver = 'ma27';
   options.nlp.solver = 'ipopt';
   
   conf = dpc_conf();
@@ -22,9 +22,9 @@ function [X,U,H,data] = dpc_swingup(X,U,H)
   system = OclSystem(@varsfun,@(eq,x,z,u,p)eqfun(eq,x,u,conf));
   ocp = OclOCP('pathcosts', @(c,x,z,u,p)pathcosts(c,x,u,conf), 'arrivalcosts', @arrivalcosts);
   
-  ocl = OclSolver(END_TIME,system,ocp,options);
+  ocl = OclSolver([],system,ocp,options);
   
-  x0 = [0; -pi; 0.1; 0; 0; 0];
+  x0 = [0; pi; 0; 0; 0; 0];
   
   % intial state bounds
   ocl.setInitialBounds('q',  x0(1:3));
@@ -32,12 +32,11 @@ function [X,U,H,data] = dpc_swingup(X,U,H)
   
   Tmin = 5; 
   Tmax = 10;
-  ocl.setBounds('h', Tmin/N, Tmax/N);
+  %ocl.setBounds('h', Tmin/N, Tmax/N);
   
   eps = 1e-2; 
   
-%   ocl.setEndBounds('q',  [0,-eps,-eps], [0,eps,eps]);
-%   ocl.setEndBounds('qdot', [0,-eps,-eps], [0,eps,eps]);
+  ocl.setEndBounds('q',  [0,0,0]);
 
   % Get and set initial guess
   initialGuess = ocl.getInitialGuess();
@@ -74,10 +73,12 @@ function [X,U,H,data] = dpc_swingup(X,U,H)
 end
 
 function varsfun(vars)
-  vars.addState('q', 3);
-  vars.addState('qdot', 3);
+  vars.addState('q', 3, 'lb', [-1,-inf,-inf], 'ub', [1,inf,inf]);
+  vars.addState('qdot', 3, 'lb', [-6,-100,-100], 'ub', [6,100,100]);
+  
+  vars.addState('time');
 
-  vars.addControl('F', 'lb', -1000, 'ub', 1000);
+  vars.addControl('F', 'lb', -100, 'ub', 100);
 end
 
 function eqfun(eq,x,u,conf)
@@ -88,12 +89,14 @@ function eqfun(eq,x,u,conf)
 
   eq.setODE('q', xdot(1:3));
   eq.setODE('qdot', xdot(4:6));
+  eq.setODE('time', 1);
 end
 
 function arrivalcosts(c, x, p)
+  c.add(x.time);
 end
 
 function pathcosts(c,x,u,conf)
   c.add( 1e-4*(u.'*u) );
-  c.add( 10*(x.'*x) );
+  c.add( 1e-4*(x.'*x) );
 end

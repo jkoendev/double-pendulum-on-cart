@@ -6,3 +6,6 @@ dpc_simple_dynamics_generated.py
 
 dpc_matlab.zip
 dpc_python.zip
+
+*.asv
+

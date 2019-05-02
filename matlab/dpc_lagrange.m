@@ -27,8 +27,8 @@ v_2 = jacobian(p_2, [q_0; q_1; q_2]) * [qdot_0; qdot_1; qdot_2];
 
 
 K_c = m_c * (v_c.'*v_c) / 2;
-K_1 = m_1 * (v_1.'*v_1) / 2;
-K_2 = m_2 * (v_2.'*v_2) / 2;
+K_1 = m_1 * (v_1.'*v_1) / 2 + 0.015*qdot_1/2;
+K_2 = m_2 * (v_2.'*v_2) / 2 + 0.018*qdot_2/2;
 
 P_1 = m_1 * g * p_1(2);
 P_2 = m_2 * g * p_2(2);
@@ -39,21 +39,21 @@ P_2 = m_2 * g * p_2(2);
 L = K_c + K_1 + K_2 - P_1 - P_2;
 
 % first term in the Euler-Lagrange equation
-partial_L_by_partial_q = jacobian(L, [q_1,q_2]).';
+partial_L_by_partial_q = jacobian(L, [q_0,q_1,q_2]).';
 
 % inner term of the second part of the Euler-Lagrange equation
-partial_L_by_partial_qdot = jacobian(L, [qdot_1,qdot_2]).';
+partial_L_by_partial_qdot = jacobian(L, [qdot_0,qdot_1,qdot_2]).';
 
 % second term (overall, time derivative) in the Euler-Lagrange equation
 % applies the chain rule
-d_inner_by_dt = jacobian(partial_L_by_partial_qdot, [q_1,q_2]) * [qdot_1;qdot_2] + ...
-                jacobian(partial_L_by_partial_qdot, [qdot_1,qdot_2]) * [qddot_1;qddot_2];
+d_inner_by_dt = jacobian(partial_L_by_partial_qdot, [q_0,q_1,q_2]) * [qdot_0;qdot_1;qdot_2] + ...
+                jacobian(partial_L_by_partial_qdot, [qdot_0,qdot_1,qdot_2]) * [qddot_0;qddot_1;qddot_2];
 
 % Euler-Lagrange equation
-lagrange_eq = partial_L_by_partial_q - d_inner_by_dt + [-d_1*qdot_1;-d_2*qdot_2];
+lagrange_eq = partial_L_by_partial_q - d_inner_by_dt + [f;-d_1*qdot_1+d_2*(qdot_2-qdot_1); d_2*(qdot_1-qdot_2)];
 
 % solve the lagrange equation for qddot and simplify (takes a while)
-r = solve(simplify(lagrange_eq), [qddot_1, qddot_2]);
+r = solve(simplify(lagrange_eq), [qddot_0,qddot_1, qddot_2]);
 
 qddot_1 = simplify(r.qddot_1);
 qddot_2 = simplify(r.qddot_2);
